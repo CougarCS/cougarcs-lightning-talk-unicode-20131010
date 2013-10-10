@@ -116,10 +116,15 @@ Unicode (\texttt{libicu}) \url{http://www.icu-project.org/}
 \end{frame}
 
 \begin{frame}
-\frametitle{How many bits do we need then?}
+\frametitle{How many bits do we need then? (serialization)}
 \begin{itemize}
-	\item UTF-32: 32-bits, uses most space
-	\item UTF-16:
+	\item UTF-32: 32-bits, uses most space. Not very useful unless you're an Elf or Klingon.
+	\item UTF-16: 16-bits, a bit of a trade-off, but this and
+	UTF-32 might require endianness handling --- BOM (byte-order mark)
+	\item UTF-8: 8-bits, developed by the Plan 9 people at
+	(particularly Ken Thompson). More complex encoding,
+	self-synchronising. Backwards compatible with ASCII \pause (as
+	long as you don't start making too many assumptions)
 \end{itemize}
 \end{frame}
 
@@ -187,6 +192,7 @@ These algorithms affect anything you have that deals with text:
 \item changing the case
 \item sorting strings
 \item checking if two strings are equal
+\item regex (character classes)
 \end{itemize}
 \end{frame}
 
@@ -205,5 +211,27 @@ your locale
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\begin{itemize}
+\item Regex:
+\item What's a number? \texttt{[0-9]}?
+\item What's a word character \texttt{[A-Za-z]}?
+\item Are glyphs made up of code points combined with diacritical
+marks equal to their precomposed equivalents?
+
+\'e could either be the single code-point U+00E9 or the code-point U+0065 (e) combined with the acute
+accent code-point U+0301 (\'{}).
+
+\pause the normalization algorithm converts code-point sequences to
+a canonical form
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+\item Best source to read about all this is the standard.
+\item I have some more links that I'll post with these slides.
+\end{itemize}
+\end{frame}
 
 \end{document}
